@@ -1,8 +1,6 @@
 /**
  * js/settings.js -- ReGRC
- *
  * App-wide settings: theme, display preferences, defaults, data tools.
- * Persisted to localStorage so they survive page refresh.
  */
 
 const appSettings = {
