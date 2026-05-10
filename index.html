@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ReGRC</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-mark" style="background:transparent;overflow:hidden;padding:0;">
+    <img src="data:image/png;base64,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" width="42" height="42" style="display:block;border-radius:50%;" alt="ReGRC logo">
+  </div>
+  <span class="logo-text">Re<span>GRC</span></span>
+  <div class="header-spacer"></div>
+  <span class="header-badge">v1.0 · Basic</span>
+  <div class="avatar" title="Admin">AD</div>
+</header>
+
+<!-- SHELL -->
+<div class="shell">
+
+  <!-- SIDEBAR -->
+  <aside>
+    <div class="nav-section-label">Overview</div>
+    <div class="nav-item active" data-page="dashboard" onclick="navigate(this)">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M0 0h7v7H0V0zm9 0h7v7H9V0zM0 9h7v7H0V9zm9 0h7v7H9V9z" opacity=".7"/></svg>
+      Dashboard
+    </div>
+
+    <div class="nav-section-label">Governance</div>
+    <div class="nav-item" data-page="controls" onclick="navigate(this)">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1L1 4v4c0 4.4 3 7.7 7 8.9C15 15.7 15 12.4 15 8V4L8 1zm0 6.5H6V6h2V5h1v1h2v1.5h-2V9H9v1H7V9H8V7.5z" opacity=".8"/></svg>
+      Control Library
+    </div>
+
+    <div class="nav-section-label">Risk</div>
+    <div class="nav-item" data-page="risks" onclick="navigate(this)">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1L0 15h16L8 1zm0 3l5.5 9H2.5L8 4zm-.5 3v3h1V7h-1zm0 4v1h1v-1h-1z" opacity=".8"/></svg>
+      Risk Register
+    </div>
+
+    <div class="nav-bottom">
+      <div class="nav-section-label">System</div>
+      <div class="nav-item">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM2 14s-1 0-1-1 1-4 7-4 7 3 7 4-1 1-1 1H2z" opacity=".7"/></svg>
+        Profile
+      </div>
+      <div class="nav-item" data-page="settings" onclick="navigate(this)">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.5 1a.5.5 0 0 1 1 0v1.07a5 5 0 0 1 3.536 1.464l.757-.757a.5.5 0 0 1 .707.707l-.757.757A5 5 0 0 1 14 8a6 6 0 1 1-12 0 5 5 0 0 1 1.257-3.258l-.757-.757a.5.5 0 1 1 .707-.707l.757.757A5 5 0 0 1 7 2.07V1zm.5 2a4 4 0 1 0 0 8A4 4 0 0 0 8 3zm.5 2v3h2v1H7V5h1.5z" opacity=".7"/></svg>
+        Settings
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- ═══ DASHBOARD ═══════════════════════════ -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Dashboard</div>
+          <div class="page-subtitle">GRC posture at a glance · Updated just now</div>
+        </div>
+        <button class="btn btn-outline" onclick="alert('Export report — coming soon')">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M8 12l-4-4h3V2h2v6h3L8 12zM1 13h14v2H1z"/></svg>
+          Export
+        </button>
+      </div>
+
+      <div class="dash-grid">
+
+        <!-- Control Status Breakdown Pie -->
+        <div class="card">
+          <div class="card-title">Control Status Breakdown</div>
+          <div class="pie-wrap">
+            <div class="pie-container" style="position:relative;flex-shrink:0;width:130px;height:130px;">
+              <svg class="pie-svg" id="ctrl-pie" width="130" height="130" viewBox="0 0 130 130">
+                <circle cx="65" cy="65" r="52" fill="none" stroke="#1e2530" stroke-width="26"/>
+                <text x="65" y="69" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="13" fill="#484f58">No data</text>
+              </svg>
+              <div class="pie-tooltip" id="ctrl-pie-tooltip"></div>
+            </div>
+            <div class="pie-legend" id="ctrl-pie-legend">
+              <div class="pie-legend-row" data-legend-idx="0">
+                <div class="pie-legend-left"><div class="pie-dot" style="background:#3fb950"></div><span>Compliant</span></div>
+                <span class="pie-legend-pct" id="ctrl-pct-0"></span>
+                <span class="pie-legend-count">—</span>
+              </div>
+              <div class="pie-legend-row" data-legend-idx="1">
+                <div class="pie-legend-left"><div class="pie-dot" style="background:#d29922"></div><span>In Review</span></div>
+                <span class="pie-legend-pct" id="ctrl-pct-1"></span>
+                <span class="pie-legend-count">—</span>
+              </div>
+              <div class="pie-legend-row" data-legend-idx="2">
+                <div class="pie-legend-left"><div class="pie-dot" style="background:#f85149"></div><span>Non-Compliant</span></div>
+                <span class="pie-legend-pct" id="ctrl-pct-2"></span>
+                <span class="pie-legend-count">—</span>
+              </div>
+              <div class="pie-legend-row" data-legend-idx="3">
+                <div class="pie-legend-left"><div class="pie-dot" style="background:#484f58"></div><span>Not Assessed</span></div>
+                <span class="pie-legend-pct" id="ctrl-pct-3"></span>
+                <span class="pie-legend-count">—</span>
+              </div>
+              <div class="pie-legend-row" data-legend-idx="4">
+                <div class="pie-legend-left"><div class="pie-dot" style="background:#bc8cff"></div><span>Out of Scope</span></div>
+                <span class="pie-legend-pct" id="ctrl-pct-4"></span>
+                <span class="pie-legend-count">—</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Risk Likelihood x Impact Matrix -->
+        <div class="card">
+          <div class="card-title">Risk Register Index</div>
+          <div id="risk-matrix-wrap"></div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="card" id="recent-activity-card" style="grid-column: 1 / -1;">
+          <div class="card-title">Recent Activity</div>
+          <div class="empty-state">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 8v4l3 3M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+            <p>No recent activity. Add controls and risks to see updates here.</p>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /dashboard -->
+
+
+    <!-- ═══ CONTROL LIBRARY ══════════════════════ -->
+    <div class="page" id="page-controls">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Control Library</div>
+          <div class="page-subtitle">Manage and track all governance controls</div>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('control-modal')">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M7 7V1h2v6h6v2H9v6H7V9H1V7h6z"/></svg>
+          Add Control
+        </button>
+      </div>
+
+      <div class="toolbar">
+        <input class="search-input" type="text" id="ctrl-search" placeholder="Search controls…" oninput="filterTable('ctrl-search','ctrl-body')">
+        <select class="filter-select" onchange="filterByStatus('ctrl-body', this.value)">
+          <option value="">All Statuses</option>
+          <option value="Compliant">Compliant</option>
+          <option value="In Review">In Review</option>
+          <option value="Non-Compliant">Non-Compliant</option>
+          <option value="Not Assessed">Not Assessed</option>
+          <option value="Out of Scope">Out of Scope</option>
+        </select>
+        <select class="filter-select" onchange="filterByDomain('ctrl-body', this.value)">
+          <option value="">All Domains</option>
+          <option value="Access Control">Access Control</option>
+          <option value="Server Management">Server Management</option>
+          <option value="Vulnerability Management">Vulnerability Management</option>
+          <option value="Messaging and Collaboration">Messaging and Collaboration</option>
+          <option value="Network Security">Network Security</option>
+          <option value="Vendor Management">Vendor Management</option>
+          <option value="Mobile Device Management">Mobile Device Management</option>
+          <option value="Workstation Management">Workstation Management</option>
+          <option value="Infrastructure Monitoring">Infrastructure Monitoring</option>
+          <option value="Database Management">Database Management</option>
+          <option value="Antivirus Management">Antivirus Management</option>
+          <option value="Backup &amp; Storage">Backup &amp; Storage</option>
+          <option value="Cloud">Cloud</option>
+        </select>
+      </div>
+
+      <div class="card" style="padding:0;overflow:hidden;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Control Name</th>
+              <th>Domain</th>
+              <th>Validation Date</th>
+              <th>Frequency</th>
+              <th>Owner</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="ctrl-body"></tbody>
+        </table>
+        <div id="ctrl-empty" class="empty-state" style="display:none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2z"/></svg>
+          <p>No controls yet. Click <strong>Add Control</strong> to get started.</p>
+        </div>
+      </div>
+    </div><!-- /controls -->
+
+
+    <!-- ═══ RISK REGISTER ════════════════════════ -->
+    <div class="page" id="page-risks">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Risk Register</div>
+          <div class="page-subtitle">Identify, assess, and track organizational risks</div>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('risk-modal')">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M7 7V1h2v6h6v2H9v6H7V9H1V7h6z"/></svg>
+          Add Risk
+        </button>
+      </div>
+
+      <div class="toolbar">
+        <input class="search-input" type="text" id="risk-search" placeholder="Search risks…" oninput="filterTable('risk-search','risk-body')">
+        <select class="filter-select" onchange="filterByLevel('risk-body', this.value)">
+          <option value="">All Levels</option>
+          <option value="Critical">Critical</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+        </select>
+        <select class="filter-select" onchange="filterByCategory('risk-body', this.value)">
+          <option value="">All Categories</option>
+          <option value="Operational">Operational</option>
+          <option value="Compliance">Compliance</option>
+          <option value="Strategic">Strategic</option>
+          <option value="Financial">Financial</option>
+          <option value="Technology">Technology</option>
+        </select>
+      </div>
+
+      <div class="card" style="padding:0;overflow:hidden;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Risk Title</th>
+              <th>Category</th>
+              <th>Impact</th>
+              <th>Likelihood</th>
+              <th>Risk Level</th>
+              <th>Owner</th>
+              <th>Treatment</th>
+              <th>Linked Controls</th>
+            </tr>
+          </thead>
+          <tbody id="risk-body"></tbody>
+        </table>
+        <div id="risk-empty" class="empty-state" style="display:none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+          <p>No risks recorded. Click <strong>Add Risk</strong> to get started.</p>
+        </div>
+      </div>
+    </div><!-- /risks -->
+
+
+    <!-- ═══ SETTINGS ═══════════════════════════════ -->
+    <div class="page" id="page-settings">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Settings</div>
+          <div class="page-subtitle">Manage application preferences and configuration</div>
+        </div>
+        <button class="btn btn-outline" onclick="resetSettingsToDefault()">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/><path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/></svg>
+          Reset Defaults
+        </button>
+      </div>
+
+      <div class="settings-layout">
+
+        <!-- ── Appearance ─────────────────────────────── -->
+        <div class="settings-group">
+          <div class="settings-group-title">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4zM3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L9.373 7.028a1.5 1.5 0 0 0-.405 1.566l.516 1.469c.08.23-.109.47-.367.47h-.208a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3.5a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5H12.5l.516-1.469a1.5 1.5 0 0 0-.405-1.566L10.993 5.99zM8 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>
+            Appearance
+          </div>
+          <div class="card settings-card">
+            <div class="setting-row">
+              <div class="setting-icon" style="background:rgba(122,69,32,.12);color:var(--accent-blue);">
+                <svg viewBox="0 0 16 16" fill="currentColor"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/></svg>
+              </div>
+              <div class="setting-body">
+                <div class="setting-title">Dark Mode</div>
+                <div class="setting-sub">Switch to the original dark color scheme</div>
+              </div>
+              <label class="s-toggle">
+                <input type="checkbox" id="s-dark-mode" onchange="onSettingToggle('darkMode', this.checked)">
+                <span class="s-track"><span class="s-thumb"></span></span>
+              </label>
+            </div>
+            <div class="setting-sep"></div>
+            <div class="setting-row">
+              <div class="setting-icon" style="background:rgba(42,110,66,.1);color:var(--accent-green);">
+                <svg viewBox="0 0 16 16" fill="currentColor"><path d="M0 4s0-2 2-2h12s2 0 2 2v6s0 2-2 2h-4c0 .667.083 1.167.25 1.5H11a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1h.75c.167-.333.25-.833.25-1.5H2s-2 0-2-2V4zm1.398-.855a.758.758 0 0 0-.254.302A1.46 1.46 0 0 0 1 4v6l.002.177c.01.16.05.383.254.578.208.198.601.373 1.542.35.754-.02 1.538-.049 2.202-.093V4.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 .5.5v6.062c.948.028 1.553.109 1.8.136.294.032.638-.008.844-.198.208-.19.258-.47.258-.5V4c0-.177-.05-.38-.254-.578C13.6 3.225 13.208 3 12 3H4C2.798 3 2.005 3.172 1.398 3.145z"/></svg>
+              </div>
+              <div class="setting-body">
+                <div class="setting-title">Compact View</div>
+                <div class="setting-sub">Reduce spacing for a denser layout</div>
+              </div>
+              <label class="s-toggle">
+                <input type="checkbox" id="s-compact-view" onchange="onSettingToggle('compactView', this.checked)">
+                <span class="s-track"><span class="s-thumb"></span></span>
+              </label>
+            </div>
+            <div class="setting-sep"></div>
+            <div class="setting-row">
+              <div class="setting-icon" style="background:rgba(112,80,168,.1);color:var(--accent-purple);">
+                <svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2zm.5 3h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1 0-1zm0 2.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1 0-1zm0 2.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1 0-1z"/></svg>
+              </div>
+              <div class="setting-body">
+                <div class="setting-title">Sticky Table Headers</div>
+                <div class="setting-sub">Keep column headers visible while scrolling</div>
+              </div>
+              <label class="s-toggle">
+                <input type="checkbox" id="s-sticky-headers" onchange="onSettingToggle('stickyTableHeaders', this.checked)">
+                <span class="s-track"><span class="s-thumb"></span></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Dashboard ──────────────────────────────── -->
+        <div class="settings-group">
+          <div class="settings-group-title">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M0 0h7v7H0V0zm9 0h7v7H9V0zM0 9h7v7H0V9zm9 0h7v7H9V9z" opacity=".7"/></svg>
+            Dashboard
+          </div>
+          <div class="card settings-card">
+            <div class="setting-row">
+              <div class="setting-icon" style="background:rgba(122,69,32,.12);color:var(--accent-blue);">
+                <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/></svg>
+              </div>
+              <div class="setting-body">
+                <div class="setting-title">Show Recent Activity</div>
+                <div class="setting-sub">Display the activity feed on the dashboard</div>
+              </div>
+              <label class="s-toggle">
+                <input type="checkbox" id="s-recent-activity" onchange="onSettingToggle('showRecentActivity', this.checked)">
+                <span class="s-track"><span class="s-thumb"></span></span>
+              </label>
+            </div>
+            <div class="setting-sep"></div>
+            <div class="setting-row">
+              <div class="setting-icon" style="background:rgba(42,110,66,.1);color:var(--accent-green);">
+                <svg viewBox="0 0 16 16" fill="currentColor"><path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/><path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/></svg>
+              </div>
+              <div class="setting-body">
+                <div class="setting-title">Auto Refresh</div>
+                <div class="setting-sub">Automatically re-render charts and tables</div>
+              </div>
+              <select class="s-select" id="s-auto-refresh" onchange="onSettingSelect('autoRefresh', this.value)">
+                <option value="off">Off</option>
+                <option value="1">Every 1 minute</option>
+                <option value="5">Every 5 minutes</option>
+                <option value="10">Every 10 minutes</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Controls ───────────────────────────────── -->
+        <div class="settings-group">
+          <div class="settings-group-title">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1L1 4v4c0 4.4 3 7.7 7 8.9C15 15.7 15 12.4 15 8V4L8 1z" opacity=".8"/></svg>
+            Control Library
+          </div>
+          <div class="card settings-card">
+            <div class="setting-row">
+              <div class="setting-icon" style="background:rgba(192,48,32,.1);color:var(--accent-red);">
+                <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/></svg>
+              </div>
+              <div class="setting-body">
+                <div class="setting-title">Auto-detect Overdue Controls</div>
+                <div class="setting-sub">Automatically mark controls as Non-Compliant when validation date has passed</div>
+              </div>
+              <label class="s-toggle">
+                <input type="checkbox" id="s-overdue-auto" onchange="onSettingToggle('overdueAutoDetect', this.checked); renderControls(); refreshDashboard();">
+                <span class="s-track"><span class="s-thumb"></span></span>
+              </label>
+            </div>
+            <div class="setting-sep"></div>
+            <div class="setting-row">
+              <div class="setting-icon" style="background:rgba(122,69,32,.12);color:var(--accent-blue);">
+                <svg viewBox="0 0 16 16" fill="currentColor"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M9.5 8.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z"/></svg>
+              </div>
+              <div class="setting-body">
+                <div class="setting-title">Default Status for New Controls</div>
+                <div class="setting-sub">Pre-select this status when adding a control</div>
+              </div>
+              <select class="s-select" id="s-default-ctrl-status" onchange="onSettingSelect('defaultCtrlStatus', this.value)">
+                <option value="Not Assessed">Not Assessed</option>
+                <option value="Compliant">Compliant</option>
+                <option value="In Review">In Review</option>
+                <option value="Non-Compliant">Non-Compliant</option>
+                <option value="Out of Scope">Out of Scope</option>
+              </select>
+            </div>
+            <div class="setting-sep"></div>
+            <div class="setting-row">
+              <div class="setting-icon" style="background:rgba(112,80,168,.1);color:var(--accent-purple);">
+                <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg>
+              </div>
+              <div class="setting-body">
+                <div class="setting-title">Show Linked Controls in Risk View</div>
+                <div class="setting-sub">Display linked control tags in the risk register table</div>
+              </div>
+              <label class="s-toggle">
+                <input type="checkbox" id="s-show-linked-controls" onchange="onSettingToggle('showLinkedControls', this.checked); renderRisks();">
+                <span class="s-track"><span class="s-thumb"></span></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Risk ───────────────────────────────────── -->
+        <div class="settings-group">
+          <div class="settings-group-title">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1L0 15h16L8 1zm0 3l5.5 9H2.5L8 4zm-.5 3v3h1V7h-1zm0 4v1h1v-1h-1z" opacity=".8"/></svg>
+            Risk Register
+          </div>
+          <div class="card settings-card">
+            <div class="setting-row">
+              <div class="setting-icon" style="background:rgba(184,120,8,.12);color:var(--accent-yellow);">
+                <svg viewBox="0 0 16 16" fill="currentColor"><path d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001"/></svg>
+              </div>
+              <div class="setting-body">
+                <div class="setting-title">Default Treatment for New Risks</div>
+                <div class="setting-sub">Pre-select this treatment strategy when adding a risk</div>
+              </div>
+              <select class="s-select" id="s-default-treatment" onchange="onSettingSelect('defaultTreatment', this.value)">
+                <option value="Accept">Accept</option>
+                <option value="Mitigate">Mitigate</option>
+                <option value="Transfer">Transfer</option>
+                <option value="Avoid">Avoid</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Data Management (full width) ───────────── -->
+        <div class="settings-group settings-group-full">
+          <div class="settings-group-title">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M9.828.722a.5.5 0 0 1 .354.146l4.95 4.95a.5.5 0 0 1 .146.354v9.5a.5.5 0 0 1-.5.5H1.5a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 .5-.5h8.328zM2 1v13h12V6.5h-4a.5.5 0 0 1-.5-.5V1H2zm7.5.354V5.5H13.146L9.5 1.354z"/></svg>
+            Data Management
+          </div>
+          <div class="card settings-card">
+
+            <!-- Reset confirm bar -->
+            <div class="delete-confirm-bar" id="reset-confirm-bar" style="margin:0 0 16px;">
+              <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/></svg>
+              <p>This will permanently delete <strong>all controls and risks</strong>. This cannot be undone.</p>
+              <button class="btn btn-outline" style="padding:5px 10px;font-size:12px;flex-shrink:0;" onclick="cancelResetData()">Cancel</button>
+              <button class="btn" style="background:var(--accent-red);color:#fff;padding:5px 10px;font-size:12px;border:none;flex-shrink:0;" onclick="confirmResetData()">Delete All</button>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-icon" style="background:rgba(42,110,66,.1);color:var(--accent-green);">
+                <svg viewBox="0 0 16 16" fill="currentColor"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
+              </div>
+              <div class="setting-body">
+                <div class="setting-title">Export Data</div>
+                <div class="setting-sub">Download all controls and risks as a JSON file</div>
+              </div>
+              <button class="btn btn-outline s-action-btn" onclick="exportData()">Export JSON</button>
+            </div>
+            <div class="setting-sep"></div>
+            <div class="setting-row">
+              <div class="setting-icon" style="background:rgba(192,48,32,.1);color:var(--accent-red);">
+                <svg viewBox="0 0 16 16" fill="currentColor"><path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5zM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11z"/></svg>
+              </div>
+              <div class="setting-body">
+                <div class="setting-title">Reset All Data</div>
+                <div class="setting-sub">Permanently delete all controls and risks — cannot be undone</div>
+              </div>
+              <button class="btn s-action-btn" style="background:rgba(192,48,32,.1);color:var(--accent-red);border:1px solid rgba(192,48,32,.25);" onclick="promptResetData()">Reset Data</button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /settings-layout -->
+    </div><!-- /page-settings -->
+
+
+    <!-- ═══ SETTINGS ════════════════════════════ -->
+    <div class="page" id="page-settings">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Settings</div>
+          <div class="page-subtitle">Customize your ReGRC experience</div>
+        </div>
+      </div>
+
+      <div class="settings-grid">
+
+        <!-- Appearance -->
+        <div class="card settings-card">
+          <div class="settings-card-header">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm4 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM5.5 7a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm.5 6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/><path d="M16 8c0 3.15-1.866 2.585-3.567 2.07C11.42 9.763 10.465 9.5 10 10c-.557.55-.item.998-.item.998S9.056 11 9 11c-.966.966-4.86 5.768-4.86 5.768a1 1 0 0 1-1.414-1.414l4.85-4.85c0 0-.031-.007.008-.005 0 0 .47-.503.47-.97 0-.608-.768-1.243-1.384-1.803C5.018 7.11 4 6.228 4 5a4 4 0 0 1 7.957-.911C12.613 4.088 13.25 4 14 4a2 2 0 0 1 2 2v2z" opacity=".4"/></svg>
+            Appearance
+          </div>
+          <div class="settings-rows">
+            <div class="setting-row">
+              <div class="setting-info">
+                <div class="setting-label">Dark Mode</div>
+                <div class="setting-desc">Switch to the dark color scheme optimized for low-light use</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="setting-darkMode" onchange="applySetting('darkMode', this.checked)">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="setting-row">
+              <div class="setting-info">
+                <div class="setting-label">Compact Table View</div>
+                <div class="setting-desc">Reduce row padding to show more items on screen at once</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="setting-compactView" onchange="applySetting('compactView', this.checked)">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="setting-row">
+              <div class="setting-info">
+                <div class="setting-label">Animate Charts</div>
+                <div class="setting-desc">Enable draw-in animations when charts load or refresh</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="setting-animateCharts" onchange="applySetting('animateCharts', this.checked)">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="card settings-card">
+          <div class="settings-card-header">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1L1 4v4c0 4.4 3 7.7 7 8.9C15 15.7 15 12.4 15 8V4L8 1z" opacity=".8"/></svg>
+            Control Library
+          </div>
+          <div class="settings-rows">
+            <div class="setting-row">
+              <div class="setting-info">
+                <div class="setting-label">Auto-flag Overdue Controls</div>
+                <div class="setting-desc">Automatically mark controls with a past validation date as Non-Compliant</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="setting-autoFlagOverdue" onchange="applySetting('autoFlagOverdue', this.checked)">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="setting-row">
+              <div class="setting-info">
+                <div class="setting-label">Default Control Status</div>
+                <div class="setting-desc">Pre-select this status when adding a new control</div>
+              </div>
+              <select class="settings-select" id="setting-defaultCtrlStatus"
+                      onchange="applySetting('defaultCtrlStatus', this.value)">
+                <option>Not Assessed</option>
+                <option>Compliant</option>
+                <option>In Review</option>
+                <option>Non-Compliant</option>
+                <option>Out of Scope</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Risk Register -->
+        <div class="card settings-card">
+          <div class="settings-card-header">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1L0 15h16L8 1zm0 3l5.5 9H2.5L8 4zm-.5 3v3h1V7h-1zm0 4v1h1v-1h-1z" opacity=".8"/></svg>
+            Risk Register
+          </div>
+          <div class="settings-rows">
+            <div class="setting-row">
+              <div class="setting-info">
+                <div class="setting-label">Default Treatment Strategy</div>
+                <div class="setting-desc">Pre-select this treatment when adding a new risk</div>
+              </div>
+              <select class="settings-select" id="setting-defaultTreatment"
+                      onchange="applySetting('defaultTreatment', this.value)">
+                <option>Mitigate</option>
+                <option>Accept</option>
+                <option>Transfer</option>
+                <option>Avoid</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Data & Export -->
+        <div class="card settings-card">
+          <div class="settings-card-header">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
+            Data &amp; Export
+          </div>
+          <div class="settings-rows">
+            <div class="setting-row">
+              <div class="setting-info">
+                <div class="setting-label">Export Format</div>
+                <div class="setting-desc">Default format when exporting reports</div>
+              </div>
+              <select class="settings-select" id="setting-exportFormat"
+                      onchange="applySetting('exportFormat', this.value)">
+                <option>CSV</option>
+                <option>JSON</option>
+                <option>PDF</option>
+              </select>
+            </div>
+            <div class="setting-row setting-row-danger">
+              <div class="setting-info">
+                <div class="setting-label">Reset All Data</div>
+                <div class="setting-desc">Permanently delete all controls and risks. This cannot be undone.</div>
+              </div>
+              <button class="btn settings-danger-btn" id="reset-data-btn" onclick="resetAllData()">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5zM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11zm1.958 1l-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916z"/></svg>
+                Reset All Data
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /settings-grid -->
+    </div><!-- /settings -->
+
+  </main>
+</div><!-- /shell -->
+
+
+<!-- ═══ MODALS ═══════════════════════════════════════ -->
+
+<!-- ADD CONTROL MODAL -->
+<div class="modal-overlay" id="control-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">Add New Control</span>
+      <button class="modal-close" onclick="closeModal('control-modal')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Control Name *</label>
+          <input class="form-control" id="c-name" type="text" placeholder="e.g. Multi-Factor Authentication">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Domain *</label>
+            <select class="form-control" id="c-domain">
+              <option value="">Select domain</option>
+              <option value="Access Control">Access Control</option>
+              <option value="Server Management">Server Management</option>
+              <option value="Vulnerability Management">Vulnerability Management</option>
+              <option value="Messaging and Collaboration">Messaging and Collaboration</option>
+              <option value="Network Security">Network Security</option>
+              <option value="Vendor Management">Vendor Management</option>
+              <option value="Mobile Device Management">Mobile Device Management</option>
+              <option value="Workstation Management">Workstation Management</option>
+              <option value="Infrastructure Monitoring">Infrastructure Monitoring</option>
+              <option value="Database Management">Database Management</option>
+              <option value="Antivirus Management">Antivirus Management</option>
+              <option value="Backup &amp; Storage">Backup &amp; Storage</option>
+              <option value="Cloud">Cloud</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Validation Date</label>
+            <input class="form-control" id="c-validation-date" type="date">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Owner</label>
+            <input class="form-control" id="c-owner" type="text" placeholder="e.g. IT Security Team">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Status *</label>
+            <select class="form-control" id="c-status">
+              <option value="Not Assessed">Not Assessed</option>
+              <option value="Compliant">Compliant</option>
+              <option value="In Review">In Review</option>
+              <option value="Non-Compliant">Non-Compliant</option>
+              <option value="Out of Scope">Out of Scope</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Control Frequency</label>
+          <select class="form-control" id="c-frequency">
+            <option value="">Select frequency</option>
+            <option value="Monthly">Monthly</option>
+            <option value="Quarterly">Quarterly</option>
+            <option value="Semi-Annual">Semi-Annual</option>
+            <option value="Annual">Annual</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea class="form-control" id="c-desc" placeholder="Describe this control and its objectives…"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('control-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveControl()">Save Control</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD RISK MODAL -->
+<div class="modal-overlay" id="risk-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">Add New Risk</span>
+      <button class="modal-close" onclick="closeModal('risk-modal')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Risk Title *</label>
+          <input class="form-control" id="r-title" type="text" placeholder="e.g. Unauthorized Data Access">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Category *</label>
+            <select class="form-control" id="r-cat">
+              <option value="">Select category</option>
+              <option>Operational</option>
+              <option>Compliance</option>
+              <option>Strategic</option>
+              <option>Financial</option>
+              <option>Technology</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Owner</label>
+            <input class="form-control" id="r-owner" type="text" placeholder="e.g. CISO">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Impact</label>
+            <select class="form-control" id="r-impact">
+              <option>Very Low</option>
+              <option>Low</option>
+              <option selected>Medium</option>
+              <option>High</option>
+              <option>Very High</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Likelihood</label>
+            <select class="form-control" id="r-likelihood">
+              <option>Very Low</option>
+              <option>Low</option>
+              <option selected>Medium</option>
+              <option>High</option>
+              <option>Very High</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Treatment Strategy</label>
+          <select class="form-control" id="r-treatment">
+            <option>Accept</option>
+            <option>Mitigate</option>
+            <option>Transfer</option>
+            <option>Avoid</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Linked Controls</label>
+          <div class="ctrl-picker">
+            <div class="ctrl-picker-search-wrap">
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" style="color:var(--text-muted);flex-shrink:0"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.099zm-5.242 1.656a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z"/></svg>
+              <input class="ctrl-picker-search" id="r-ctrl-search" type="text" placeholder="Search controls…" oninput="filterCtrlPicker()" autocomplete="off">
+            </div>
+            <div class="ctrl-picker-list" id="r-ctrl-list">
+              <div class="ctrl-picker-empty">No controls added yet</div>
+            </div>
+            <div class="ctrl-picker-selected" id="r-ctrl-selected-wrap" style="display:none;">
+              <div class="ctrl-picker-selected-label">Selected:</div>
+              <div class="ctrl-picker-tags" id="r-ctrl-tags"></div>
+            </div>
+          </div>
+          <input type="hidden" id="r-controls-hidden">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea class="form-control" id="r-desc" placeholder="Describe the risk, potential consequences, and context…"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Action Plan</label>
+          <textarea class="form-control" id="r-action" placeholder="Steps to mitigate or resolve this risk…"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Due Date</label>
+          <input class="form-control" id="r-due-date" type="date">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('risk-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveRisk()">Save Risk</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ CONTROL DETAIL DRAWER ══════════════════════ -->
+<div class="drawer-overlay" id="ctrl-drawer-overlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="ctrl-drawer">
+
+  <div class="drawer-header">
+    <div class="drawer-header-info">
+      <div class="drawer-id" id="dw-id">—</div>
+      <div class="drawer-title" id="dw-name">Control Detail</div>
+    </div>
+    <div class="drawer-header-actions">
+      <button class="icon-btn danger" title="Delete Control" onclick="promptDeleteControl()">
+        <svg viewBox="0 0 16 16" fill="currentColor">
+          <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5zM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11zm1.958 1l-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916z"/>
+        </svg>
+      </button>
+      <button class="icon-btn" title="Close" onclick="closeDrawer()">
+        <svg viewBox="0 0 16 16" fill="currentColor">
+          <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="drawer-body">
+
+    <!-- Delete confirmation bar -->
+    <div class="delete-confirm-bar" id="dw-delete-bar">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/></svg>
+      <p>Permanently delete <span id="dw-delete-name"></span>?</p>
+      <button class="btn btn-outline" style="padding:5px 10px;font-size:12px;" onclick="cancelDelete()">Cancel</button>
+      <button class="btn" style="background:var(--accent-red);color:#fff;padding:5px 10px;font-size:12px;border:none;" onclick="confirmDeleteControl()">Delete</button>
+    </div>
+
+    <!-- Validate confirmation bar -->
+    <div class="validate-confirm-bar" id="dw-validate-bar">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/></svg>
+      <p>Mark this control as <strong style="color:var(--accent-green)">Compliant</strong> with today's validation date?</p>
+      <button class="btn btn-outline" style="padding:5px 10px;font-size:12px;" onclick="cancelValidate()">Cancel</button>
+      <button class="btn btn-green" style="padding:5px 10px;font-size:12px;" onclick="confirmValidateControl()">Confirm</button>
+    </div>
+
+    <!-- Details section -->
+    <div class="drawer-section">
+      <div class="drawer-section-title">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zm-9 4a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zm0 3a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zm0 3a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1H5z"/></svg>
+        Control Details
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item">
+          <span class="detail-label">Domain</span>
+          <span class="detail-value" id="dw-domain">—</span>
+        </div>
+
+        <!-- Status — editable -->
+        <div class="detail-item">
+          <span class="detail-label">Status</span>
+          <div class="inline-edit-wrap" id="dw-status-wrap">
+            <span class="detail-value inline-edit-display" id="dw-status">—</span>
+            <button class="inline-edit-btn" title="Edit status" onclick="startEditStatus()">
+              <svg viewBox="0 0 16 16" fill="currentColor"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/></svg>
+            </button>
+          </div>
+          <div class="inline-edit-field" id="dw-status-edit">
+            <select class="inline-edit-select" id="dw-status-input">
+              <option value="Not Assessed">Not Assessed</option>
+              <option value="Compliant">Compliant</option>
+              <option value="In Review">In Review</option>
+              <option value="Non-Compliant">Non-Compliant</option>
+              <option value="Out of Scope">Out of Scope</option>
+            </select>
+            <button class="inline-save-btn" onclick="saveEditStatus()" title="Save">
+              <svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
+            </button>
+            <button class="inline-cancel-btn" onclick="cancelEditStatus()" title="Cancel">
+              <svg viewBox="0 0 16 16" fill="currentColor"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Owner — editable -->
+        <div class="detail-item">
+          <span class="detail-label">Owner</span>
+          <div class="inline-edit-wrap" id="dw-owner-wrap">
+            <span class="detail-value inline-edit-display" id="dw-owner">—</span>
+            <button class="inline-edit-btn" title="Edit owner" onclick="startEditOwner()">
+              <svg viewBox="0 0 16 16" fill="currentColor"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/></svg>
+            </button>
+          </div>
+          <div class="inline-edit-field" id="dw-owner-edit">
+            <input class="inline-edit-input" id="dw-owner-input" type="text" placeholder="Owner name…">
+            <button class="inline-save-btn" onclick="saveEditOwner()" title="Save">
+              <svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
+            </button>
+            <button class="inline-cancel-btn" onclick="cancelEditOwner()" title="Cancel">
+              <svg viewBox="0 0 16 16" fill="currentColor"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Frequency</span>
+          <span class="detail-value" id="dw-frequency">—</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Validation Date</span>
+          <span class="detail-value mono" id="dw-validation-date">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Description section -->
+    <div class="drawer-section">
+      <div class="drawer-section-title">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v8.086a1.5 1.5 0 0 1-.44 1.061l-4.121 4.121A1.5 1.5 0 0 1 9.378 16H2.5A1.5 1.5 0 0 1 1 14.5v-12zm1.5-.5a.5.5 0 0 0-.5.5v12a.5.5 0 0 0 .5.5H9v-3.5A1.5 1.5 0 0 1 10.5 10H14V2.5a.5.5 0 0 0-.5-.5h-11z"/></svg>
+        Description
+      </div>
+      <div class="desc-box" id="dw-desc">—</div>
+    </div>
+
+    <!-- Attachments section -->
+    <div class="drawer-section">
+      <div class="drawer-section-title">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0z"/></svg>
+        Attachments
+        <span id="dw-attach-count" style="margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text-muted);font-weight:400;letter-spacing:0;">0 files</span>
+      </div>
+
+      <div class="attach-drop-zone" id="dw-drop-zone" onclick="document.getElementById('dw-file-input').click()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/>
+        </svg>
+        <p><span>Click to upload</span> or drag &amp; drop<br>Any file type · Max 50 MB each</p>
+      </div>
+      <input type="file" id="dw-file-input" class="attach-input" multiple onchange="handleFileSelect(event)">
+
+      <div class="attach-list" id="dw-attach-list"></div>
+    </div>
+
+  </div><!-- /drawer-body -->
+
+  <div class="drawer-footer">
+    <button class="btn btn-green" onclick="promptValidateControl()">
+      <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
+      Validate Control
+    </button>
+  </div>
+
+</div><!-- /drawer -->
+
+
+<!-- ═══ RISK DETAIL DRAWER ═══════════════════════ -->
+<div class="drawer-overlay" id="risk-drawer-overlay" onclick="closeRiskDrawer()"></div>
+<div class="drawer" id="risk-drawer">
+
+  <div class="drawer-header">
+    <div class="drawer-header-info">
+      <div class="drawer-id" id="rdw-id">—</div>
+      <div class="drawer-title" id="rdw-title">Risk Detail</div>
+    </div>
+    <div class="drawer-header-actions">
+      <button class="icon-btn danger" title="Delete Risk" onclick="promptDeleteRisk()">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5zM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11zm1.958 1l-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916z"/></svg>
+      </button>
+      <button class="icon-btn" title="Close" onclick="closeRiskDrawer()">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="drawer-body">
+
+    <!-- Delete confirmation bar -->
+    <div class="delete-confirm-bar" id="rdw-delete-bar">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/></svg>
+      <p>Permanently delete <span id="rdw-delete-name"></span>?</p>
+      <button class="btn btn-outline" style="padding:5px 10px;font-size:12px;" onclick="cancelDeleteRisk()">Cancel</button>
+      <button class="btn" style="background:var(--accent-red);color:#fff;padding:5px 10px;font-size:12px;border:none;" onclick="confirmDeleteRisk()">Delete</button>
+    </div>
+
+    <!-- Risk details -->
+    <div class="drawer-section">
+      <div class="drawer-section-title">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1L0 15h16L8 1zm0 3l5.5 9H2.5L8 4zm-.5 3v3h1V7h-1zm0 4v1h1v-1h-1z" opacity=".8"/></svg>
+        Risk Details
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item">
+          <span class="detail-label">Category</span>
+          <span class="detail-value" id="rdw-category">—</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Risk Level</span>
+          <span class="detail-value" id="rdw-level">—</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Impact</span>
+          <span class="detail-value" id="rdw-impact">—</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Likelihood</span>
+          <span class="detail-value" id="rdw-likelihood">—</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Owner</span>
+          <div class="inline-edit-wrap" id="rdw-owner-wrap">
+            <span class="detail-value inline-edit-display" id="rdw-owner">—</span>
+            <button class="inline-edit-btn" title="Edit owner" onclick="startEditRiskOwner()">
+              <svg viewBox="0 0 16 16" fill="currentColor"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/></svg>
+            </button>
+          </div>
+          <div class="inline-edit-field" id="rdw-owner-edit">
+            <input class="inline-edit-input" id="rdw-owner-input" type="text" placeholder="Owner name…">
+            <button class="inline-save-btn" onclick="saveEditRiskOwner()"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg></button>
+            <button class="inline-cancel-btn" onclick="cancelEditRiskOwner()"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg></button>
+          </div>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Treatment</span>
+          <span class="detail-value" id="rdw-treatment">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Linked Controls -->
+    <div class="drawer-section">
+      <div class="drawer-section-title">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1L1 4v4c0 4.4 3 7.7 7 8.9C15 15.7 15 12.4 15 8V4L8 1z" opacity=".8"/></svg>
+        Linked Controls
+      </div>
+      <div class="tag-list" id="rdw-controls"></div>
+    </div>
+
+    <!-- Description -->
+    <div class="drawer-section">
+      <div class="drawer-section-title">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v8.086a1.5 1.5 0 0 1-.44 1.061l-4.121 4.121A1.5 1.5 0 0 1 9.378 16H2.5A1.5 1.5 0 0 1 1 14.5v-12z"/></svg>
+        Description
+      </div>
+      <div class="desc-box" id="rdw-desc">—</div>
+    </div>
+
+    <!-- Action Plan -->
+    <div class="drawer-section">
+      <div class="drawer-section-title">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M5.5 2A1.5 1.5 0 0 0 4 3.5v9A1.5 1.5 0 0 0 5.5 14h5a1.5 1.5 0 0 0 1.5-1.5v-7L9 2H5.5zM9 2.5V5h2.5L9 2.5zM5.854 7.854a.5.5 0 0 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8 6.707V10.5a.5.5 0 0 1-1 0V6.707L5.854 7.854z" opacity=".85"/></svg>
+        Action Plan
+      </div>
+      <div class="inline-edit-wrap" id="rdw-action-wrap" style="align-items:flex-start;gap:8px;">
+        <div class="desc-box inline-edit-display" id="rdw-action" style="flex:1;cursor:pointer;min-height:52px;">—</div>
+        <button class="inline-edit-btn" title="Edit action plan" onclick="startEditRiskAction()" style="margin-top:2px;flex-shrink:0;opacity:1;">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10z"/></svg>
+        </button>
+      </div>
+      <div class="inline-edit-field" id="rdw-action-edit" style="align-items:flex-start;gap:6px;">
+        <textarea class="inline-edit-input" id="rdw-action-input" style="min-height:90px;resize:vertical;padding:8px 10px;font-family:inherit;font-size:13.5px;line-height:1.55;" placeholder="Describe the steps to mitigate or resolve this risk…"></textarea>
+        <div style="display:flex;flex-direction:column;gap:4px;flex-shrink:0;">
+          <button class="inline-save-btn" onclick="saveEditRiskAction()"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg></button>
+          <button class="inline-cancel-btn" onclick="cancelEditRiskAction()"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Due Date -->
+    <div class="drawer-section">
+      <div class="drawer-section-title">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" opacity=".85"/></svg>
+        Due Date
+      </div>
+      <div class="inline-edit-wrap" id="rdw-due-wrap">
+        <span class="detail-value mono inline-edit-display" id="rdw-due">—</span>
+        <button class="inline-edit-btn" title="Edit due date" onclick="startEditRiskDue()">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10z"/></svg>
+        </button>
+      </div>
+      <div class="inline-edit-field" id="rdw-due-edit">
+        <input class="inline-edit-input" id="rdw-due-input" type="date" style="color-scheme:dark;">
+        <button class="inline-save-btn" onclick="saveEditRiskDue()"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg></button>
+        <button class="inline-cancel-btn" onclick="cancelEditRiskDue()"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg></button>
+      </div>
+    </div>
+
+  </div><!-- /drawer-body -->
+
+  <div class="drawer-footer">
+    <button class="btn btn-outline" onclick="closeRiskDrawer()">Close</button>
+  </div>
+
+</div><!-- /risk-drawer -->
+
+<!-- JS modules loaded in dependency order -->
+<script src="js/state.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/controls.js"></script>
+<script src="js/risks.js"></script>
+<script src="js/settings.js"></script>
+<script>
+  // ── Init ──────────────────────────────────────────
+  loadSettings();
+  setDatePickerMin();
+  renderControls();
+  renderRisks();
+  refreshDashboard();
+  renderSettings();
+</script>
+
+</body>
+</html>
