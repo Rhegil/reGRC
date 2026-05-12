@@ -23,6 +23,10 @@ function navigate(el) {
     selectedControlIds.clear();
     refreshRiskControlSelect();
   }
+  // Re-trigger dashboard chart animations when entering Dashboard
+  if (el.dataset.page === 'dashboard') {
+    refreshDashboard();
+  }
 }
 
 // ── Modals ───────────────────────────────────────────────
@@ -82,6 +86,14 @@ function filterByDomain(bodyId, val) {
 function filterByLevel(bodyId, val) {
   document.querySelectorAll(`#${bodyId} tr`).forEach(tr => {
     tr.style.display = (!val || tr.dataset.level === val) ? '' : 'none';
+  });
+}
+
+
+/** Filter rows by the data-status attribute (risk register). */
+function filterByRiskStatus(bodyId, val) {
+  document.querySelectorAll(`#${bodyId} tr`).forEach(tr => {
+    tr.style.display = (!val || tr.dataset.status === val) ? '' : 'none';
   });
 }
 
@@ -163,7 +175,7 @@ function drawPie(svgId, legendId, segments, legendLabels) {
   }
 
   // ── Build arcs ───────────────────────────────────────
-  const cx = 65, cy = 65, r = 52, strokeW = 26;
+  const cx = 65, cy = 65, r = 48, strokeW = 14;
   const circ = 2 * Math.PI * r;
   let offset = 0;
   let paths = `<g transform="rotate(-90 65 65)">`;
@@ -184,6 +196,9 @@ function drawPie(svgId, legendId, segments, legendLabels) {
     offset += frac;
   });
   paths += `</g>`;
+  // Center: total count + label
+  paths += `<text x="65" y="62" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="20" font-weight="700" fill="var(--text-primary)">${total}</text>`;
+  paths += `<text x="65" y="76" text-anchor="middle" font-family="IBM Plex Sans,sans-serif" font-size="9" letter-spacing="1" fill="var(--text-muted)">TOTAL</text>`;
   svg.innerHTML = paths;
 
   // ── Staggered draw animation ──────────────────────────
@@ -199,6 +214,10 @@ function drawPie(svgId, legendId, segments, legendLabels) {
       arc.style.transition = `stroke-dasharray .65s cubic-bezier(.4,0,.2,1) ${delay}ms, opacity .2s ease ${delay}ms`;
       arc.style.strokeDasharray = targetDA;
       arc.style.opacity = '1';
+      // After entrance animation finishes, keep only opacity transition for smooth hover
+      setTimeout(() => {
+        arc.style.transition = 'opacity .18s ease';
+      }, delay + 750);
     }, 30);
   });
 
@@ -207,19 +226,26 @@ function drawPie(svgId, legendId, segments, legendLabels) {
     arc.addEventListener('mouseenter', e => {
       _showPieFloatTip(e, arc);
       svg.querySelectorAll('.pie-arc').forEach(a => {
-        a.style.opacity = (a === arc) ? '1' : '0.3';
+        a.style.transition = 'opacity .18s ease';
+        a.style.opacity = (a === arc) ? '1' : '0.25';
       });
     });
     arc.addEventListener('mousemove', e => _movePieFloatTip(e));
     arc.addEventListener('mouseleave', () => {
       _hidePieFloatTip();
-      svg.querySelectorAll('.pie-arc').forEach(a => { a.style.opacity = '1'; });
+      svg.querySelectorAll('.pie-arc').forEach(a => {
+        a.style.transition = 'opacity .18s ease';
+        a.style.opacity = '1';
+      });
     });
   });
 
   svg.addEventListener('mouseleave', () => {
     _hidePieFloatTip();
-    svg.querySelectorAll('.pie-arc').forEach(a => { a.style.opacity = '1'; });
+    svg.querySelectorAll('.pie-arc').forEach(a => {
+      a.style.transition = 'opacity .18s ease';
+      a.style.opacity = '1';
+    });
   });
 
   // ── Update legend counts + percentages ───────────────
@@ -244,14 +270,37 @@ function drawPie(svgId, legendId, segments, legendLabels) {
  * Call this after any mutation to controls or risks arrays.
  */
 function refreshDashboard() {
-  // Control Status pie
-  const ctrlStatusLabels = ['Compliant', 'In Review', 'Non-Compliant', 'Not Assessed', 'Out of Scope'];
+  // Theme-aware "Not Assessed" colour: black on light, white on dark
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+  // ── KPI Cards ──────────────────────────────────────────
+  const totalControls = controls.length;
+  const totalRisks    = risks.length;
+  const compliantCount = controls.filter(c => c.status === 'Compliant').length;
+  const openRisks = risks.filter(r => r.riskStatus === 'Open').length;
+  const complianceRate = totalControls > 0 ? Math.round((compliantCount / totalControls) * 100) : 0;
+
+  const kpiTC = document.getElementById('kpi-total-controls');
+  if (kpiTC) kpiTC.textContent = totalControls;
+  const kpiTR = document.getElementById('kpi-total-risks');
+  if (kpiTR) kpiTR.textContent = totalRisks;
+  const kpiCR = document.getElementById('kpi-compliance-rate');
+  if (kpiCR) kpiCR.textContent = complianceRate + '%';
+  const kpiOR = document.getElementById('kpi-open-risks');
+  if (kpiOR) kpiOR.textContent = openRisks;
+  const kpiCSub = document.getElementById('kpi-controls-sub');
+  if (kpiCSub) kpiCSub.textContent = `${compliantCount} compliant · ${totalControls - compliantCount} others`;
+  const kpiRSub = document.getElementById('kpi-risks-sub');
+  if (kpiRSub) kpiRSub.textContent = `Across ${[...new Set(risks.map(r=>r.category))].length} categories`;
+
+  // Control Status pie — Compliant | Approaching Overdue | Overdue | Out of Scope | Not Assessed
+  const ctrlStatusLabels = ['Compliant', 'Approaching Overdue', 'Overdue', 'Out of Scope', 'Not Assessed'];
   const ctrlColors = {
-    'Compliant':     '#3fb950',
-    'In Review':     '#d29922',
-    'Non-Compliant': '#f85149',
-    'Not Assessed':  '#484f58',
-    'Out of Scope':  '#bc8cff',
+    'Compliant':          '#3fb950',
+    'Approaching Overdue':'#d29922',
+    'Overdue':            '#f85149',
+    'Out of Scope':       '#8b949e',
+    'Not Assessed':       isDark ? '#e6edf3' : '#1c0d04',
   };
   const ctrlSegs = ctrlStatusLabels.map(lbl => ({
     label: lbl,
@@ -260,113 +309,185 @@ function refreshDashboard() {
   }));
   drawPie('ctrl-pie', 'ctrl-pie-legend', ctrlSegs, ctrlStatusLabels);
 
-  // Risk Likelihood x Impact heat matrix
+  // Risk Status pie
+  const riskStatusLabels = ['Open', 'Pending Approval', 'Action Plan In Progress', 'Accepted', 'Closed'];
+  const riskStatusColors = {
+    'Open':                    '#f85149',
+    'Pending Approval':        '#d29922',
+    'Action Plan In Progress': '#58a6ff',
+    'Accepted':                '#bc8cff',
+    'Closed':                  '#3fb950',
+  };
+  const riskSegs = riskStatusLabels.map(lbl => ({
+    label: lbl,
+    color: riskStatusColors[lbl],
+    value: risks.filter(r => r.riskStatus === lbl).length,
+  }));
+  drawPie('risk-pie', 'risk-pie-legend', riskSegs, riskStatusLabels);
+
+  // ── Risk Heat Matrix ────────────────────────────────────
   drawRiskMatrix();
+  renderOverdueSection();
 }
 
-// ── Risk Likelihood x Impact Heat Matrix ─────────────────
+// ── Overdue + Approaching Overdue section renderer ────────
+function renderOverdueSection() {
+  const todayStr = todayISO();
+  const today    = new Date(todayStr);
 
-function drawRiskMatrix() {
-  const wrap = document.getElementById('risk-matrix-wrap');
-  if (!wrap) return;
+  // Ensure statuses are current before rendering
+  applyOverdueStatuses();
 
-  const likelihoods = ['Very Low','Low','Medium','High','Very High'];
-  const impacts     = ['Very High','High','Medium','Low','Very Low']; // top row = highest impact
-  const abbr        = {'Very High':'VH','High':'H','Medium':'M','Low':'L','Very Low':'VL'};
-  const scoreMap    = {'Very Low':1,'Low':2,'Medium':3,'High':4,'Very High':5};
+  const overdueList     = document.getElementById('overdue-list');
+  const approachingList = document.getElementById('approaching-list');
+  const overdueCount    = document.getElementById('overdue-count');
+  const approachCount   = document.getElementById('approaching-count');
 
-  // Count risks per cell
-  const matrix = {};
-  risks.forEach(r => {
-    const key = r.impact + '|' + r.likelihood;
-    matrix[key] = (matrix[key] || 0) + 1;
-  });
+  const overdue     = controls.filter(c => c.status === 'Overdue');
+  const approaching = controls.filter(c => c.status === 'Approaching Overdue');
 
-  const _isDark = () => document.documentElement.getAttribute('data-theme') === 'dark';
-  function cellMeta(imp, lik) {
-    const s = scoreMap[imp] * scoreMap[lik];
-    const dk = _isDark();
-    if (s >= 16) return { level:'Critical', color: dk?'#f85149':'#8f1e10', bg: dk?'rgba(248,81,73,.22)':'rgba(192,48,32,.14)',  border: dk?'rgba(248,81,73,.5)':'rgba(192,48,32,.35)',  glow: dk?'#f85149':'rgba(192,48,32,.4)' };
-    if (s >= 9)  return { level:'High',     color: dk?'#ff7b72':'#a03010', bg: dk?'rgba(255,123,114,.17)':'rgba(192,80,32,.1)',  border: dk?'rgba(255,123,114,.42)':'rgba(192,80,32,.28)', glow: dk?'#ff7b72':'rgba(192,80,32,.35)' };
-    if (s >= 4)  return { level:'Medium',   color: dk?'#d29922':'#7a5000', bg: dk?'rgba(210,153,34,.17)':'rgba(184,120,8,.12)',  border: dk?'rgba(210,153,34,.4)':'rgba(184,120,8,.3)',   glow: dk?'#d29922':'rgba(184,120,8,.4)' };
-    return              { level:'Low',      color: dk?'#58a6ff':'#5a2e0a', bg: dk?'rgba(88,166,255,.13)':'rgba(122,69,32,.1)',   border: dk?'rgba(88,166,255,.32)':'rgba(122,69,32,.28)',  glow: dk?'#58a6ff':'rgba(122,69,32,.35)' };
+  if (overdueCount)  overdueCount.textContent  = overdue.length;
+  if (approachCount) approachCount.textContent = approaching.length;
+
+  function daysOverdue(c) {
+    if (!c.validationDate) return 0;
+    return Math.abs(Math.ceil((new Date(c.validationDate) - today) / 86400000));
+  }
+  function daysLeft(c) {
+    if (!c.validationDate) return 0;
+    return Math.ceil((new Date(c.validationDate) - today) / 86400000);
   }
 
-  let html = '<div class="rm-outer">';
+  function itemHTML(c, isOverdue) {
+    const days = isOverdue ? daysOverdue(c) : daysLeft(c);
+    const daysLabel = isOverdue ? days + 'd overdue' : days + 'd left';
+    const daysClass = isOverdue ? 'overdue-days overdue' : 'overdue-days approaching';
+    return `<div class="overdue-item dg-overdue-list" onclick="openControlDrawer('${c.id}')">
+      <div class="overdue-item-left">
+        <span class="overdue-item-id">${c.id}</span>
+        <span class="overdue-item-name">${c.name}</span>
+      </div>
+      <div class="overdue-item-right">
+        <span class="${daysClass}">${daysLabel}</span>
+        <span class="overdue-owner">${c.owner}</span>
+      </div>
+    </div>`;
+  }
 
-  // Likelihood axis title + header labels
-  html += '<div class="rm-top-row">';
-  html += '<div class="rm-v-axis-spacer"></div>';
-  html += '<div class="rm-corner"></div>';
-  likelihoods.forEach(l => {
-    html += '<div class="rm-h-label">' + abbr[l] + '</div>';
-  });
-  html += '</div>';
+  if (overdueList) {
+    overdueList.innerHTML = overdue.length
+      ? overdue.map(c => itemHTML(c, true)).join('')
+      : '<div class="overdue-empty">No overdue controls</div>';
+  }
 
-  html += '<div class="rm-h-axis-title"><span></span><span class="rm-h-title-text">LIKELIHOOD \u2192</span></div>';
-
-  // Matrix rows
-  html += '<div class="rm-rows-wrap">';
-  html += '<div class="rm-v-axis-title"><span>\u2191 IMPACT</span></div>';
-  html += '<div class="rm-rows">';
-
-  impacts.forEach((imp, ri) => {
-    html += '<div class="rm-row">';
-    html += '<div class="rm-v-label">' + abbr[imp] + '</div>';
-    likelihoods.forEach((lik, ci) => {
-      const count = matrix[imp + '|' + lik] || 0;
-      const m     = cellMeta(imp, lik);
-      const delay = (ri * 5 + ci) * 18;
-      const bg     = count > 0 ? m.bg     : 'rgba(200,170,136,.15)';
-      const border = count > 0 ? m.border : 'rgba(200,170,136,.35)';
-      html += '<div class="rm-cell' + (count > 0 ? ' rm-live' : '') + '"'
-            + ' style="background:' + bg + ';border-color:' + border + ';--rm-glow:' + m.glow + ';animation-delay:' + delay + 'ms"'
-            + ' data-impact="' + imp + '" data-likelihood="' + lik + '"'
-            + ' data-count="' + count + '" data-level="' + m.level + '" data-color="' + m.color + '"'
-            + (count > 0 ? ' onmouseenter="showMatrixTip(event,this)" onmousemove="_movePieFloatTip(event)" onmouseleave="_hidePieFloatTip()"' : '')
-            + '>'
-            + (count > 0
-                ? '<span class="rm-num" style="color:' + m.color + '">' + count + '</span>'
-                : '<span class="rm-empty-pip"></span>')
-            + '</div>';
-    });
-    html += '</div>';
-  });
-
-  html += '</div></div>'; // rm-rows, rm-rows-wrap
-
-  // Legend
-  html += '<div class="rm-legend">'
-        + '<span class="rm-leg"><i style="background:rgba(122,69,32,.45)"></i>Low</span>'
-        + '<span class="rm-leg"><i style="background:rgba(184,120,8,.65)"></i>Medium</span>'
-        + '<span class="rm-leg"><i style="background:rgba(192,80,32,.65)"></i>High</span>'
-        + '<span class="rm-leg"><i style="background:rgba(192,48,32,.85)"></i>Critical</span>'
-        + '</div>';
-
-  html += '</div>'; // rm-outer
-  wrap.innerHTML = html;
+  if (approachingList) {
+    approachingList.innerHTML = approaching.length
+      ? approaching.map(c => itemHTML(c, false)).join('')
+      : '<div class="overdue-empty">No controls approaching overdue</div>';
+  }
 }
 
-function showMatrixTip(e, el) {
-  const count      = parseInt(el.dataset.count);
-  const level      = el.dataset.level;
-  const impact     = el.dataset.impact;
-  const likelihood = el.dataset.likelihood;
-  const color      = el.dataset.color;
-  const tip        = _getPieFloatTip();
+// ── Risk Heat Matrix renderer ─────────────────────────────
+function drawRiskMatrix() {
+  const outer = document.getElementById('risk-matrix-outer');
+  if (!outer) return;
 
-  tip.style.borderLeftColor = count > 0 ? color : 'var(--border)';
-  tip.innerHTML = '<div class="pie-ft-label">' + level + ' Risk Zone</div>'
-    + '<div class="pie-ft-row">'
-    + '<span class="pie-ft-count" style="color:' + (count > 0 ? color : 'var(--text-muted)') + '">' + count + '</span>'
-    + '<span class="pie-ft-pct">risk' + (count !== 1 ? 's' : '') + '</span>'
-    + '</div>'
-    + '<div class="rm-tip-meta">'
-    + 'Impact &nbsp;&nbsp;&nbsp;<span>' + impact + '</span><br>'
-    + 'Likelihood <span>' + likelihood + '</span>'
-    + '</div>'
-    + (count > 0 ? '<div class="pie-ft-bar" style="background:' + color + ';width:100%"></div>' : '');
+  const levels = ['Very Low', 'Low', 'Medium', 'High', 'Very High'];
+  const abbr   = ['VL', 'L', 'M', 'H', 'VH'];
 
-  tip.classList.add('visible');
-  _movePieFloatTip(e);
+  // Build a count map: likelihood (col) × impact (row) → risks[]
+  const map = {};
+  risks.forEach(r => {
+    const key = r.likelihood + '|' + r.impact;
+    if (!map[key]) map[key] = [];
+    map[key].push(r);
+  });
+
+  // Cell colour by product score
+  function cellStyle(imp, lik) {
+    const score = { 'Very Low':1,'Low':2,'Medium':3,'High':4,'Very High':5 };
+    const s = score[imp] * score[lik];
+    if (s >= 16) return { bg:'rgba(248,81,73,.22)', border:'rgba(248,81,73,.4)', color:'#f85149', glow:'rgba(248,81,73,.5)' };
+    if (s >= 9)  return { bg:'rgba(210,153,34,.22)', border:'rgba(210,153,34,.4)', color:'#d29922', glow:'rgba(210,153,34,.5)' };
+    if (s >= 4)  return { bg:'rgba(88,166,255,.18)', border:'rgba(88,166,255,.35)', color:'#58a6ff', glow:'rgba(88,166,255,.4)' };
+    return        { bg:'rgba(63,185,80,.15)',  border:'rgba(63,185,80,.3)',  color:'#3fb950', glow:'rgba(63,185,80,.4)' };
+  }
+
+  // Build tooltip for a cell
+  function cellTitle(imp, lik, items) {
+    if (!items.length) return `${lik} likelihood / ${imp} impact`;
+    return items.map(r => `${r.id}: ${r.title}`).join('\n');
+  }
+
+  const hdr = `
+    <div class="rm-h-axis-title">
+      <div class="rm-h-title-text">LIKELIHOOD →</div>
+    </div>
+    <div class="rm-top-row">
+      <div class="rm-v-axis-spacer"></div>
+      <div class="rm-corner"></div>
+      ${abbr.map(a => `<div class="rm-h-label">${a}</div>`).join('')}
+    </div>`;
+
+  // Rows go from Very High impact at top to Very Low at bottom
+  const rows = [...levels].reverse().map((imp, ri) => {
+    const cells = levels.map((lik, ci) => {
+      const key   = lik + '|' + imp;
+      const items = map[key] || [];
+      const st    = cellStyle(imp, lik);
+      const delay = (ri * 5 + ci) * 35;
+      const isLive = items.length > 0;
+      return `<div class="rm-cell${isLive ? ' rm-live' : ''}"
+        style="background:${isLive ? st.bg : ''};border-color:${isLive ? st.border : 'var(--border-light)'};--rm-glow:${st.glow};animation-delay:${delay}ms"
+        title="${cellTitle(imp, lik, items)}"
+        onclick="rmCellClick('${lik}','${imp}')">
+        ${isLive
+          ? `<span class="rm-num" style="color:${st.color}">${items.length}</span>`
+          : `<div class="rm-empty-pip"></div>`}
+      </div>`;
+    }).join('');
+    return `<div class="rm-row"><div class="rm-v-label">${abbr[[...levels].indexOf(imp)]}</div>${cells}</div>`;
+  }).join('');
+
+  const legend = `
+    <div class="rm-legend">
+      <div class="rm-leg"><i style="background:rgba(63,185,80,.4)"></i>Low</div>
+      <div class="rm-leg"><i style="background:rgba(88,166,255,.5)"></i>Medium</div>
+      <div class="rm-leg"><i style="background:rgba(210,153,34,.5)"></i>High</div>
+      <div class="rm-leg"><i style="background:rgba(248,81,73,.5)"></i>Critical</div>
+    </div>`;
+
+  outer.innerHTML = `
+    ${hdr}
+    <div class="rm-rows-wrap">
+      <div class="rm-v-axis-title"><span>IMPACT ↑</span></div>
+      <div class="rm-rows">${rows}</div>
+    </div>
+    ${legend}`;
 }
+
+function rmCellClick(lik, imp) {
+  // Navigate to risk register page and filter — basic highlight
+  const navItem = document.querySelector('[data-page="risks"]');
+  if (navItem) navigate(navItem);
+}
+// ── Sidebar collapse (thumbtack / pin button) ─────────────
+function toggleSidebar() {
+  const collapsed = document.body.classList.toggle('sidebar-collapsed');
+  // Persist preference
+  try { localStorage.setItem('regrc-sidebar-collapsed', collapsed ? '1' : '0'); } catch(e) {}
+  // Update tooltip
+  const btn = document.getElementById('sidebar-pin-btn');
+  if (btn) btn.title = collapsed ? 'Expand sidebar' : 'Collapse sidebar';
+}
+
+// Restore sidebar state on load
+(function restoreSidebar() {
+  try {
+    if (localStorage.getItem('regrc-sidebar-collapsed') === '1') {
+      document.body.classList.add('sidebar-collapsed');
+      const btn = document.getElementById('sidebar-pin-btn');
+      if (btn) btn.title = 'Expand sidebar';
+    }
+  } catch(e) {}
+})();
