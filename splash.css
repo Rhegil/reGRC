@@ -1,0 +1,203 @@
+/* ═══════════════════════════════════════════════════════════
+   SPLASH / INTRO SCREEN
+   ═══════════════════════════════════════════════════════════ */
+/* ─── Splash Screen ──────────────────────────────────────── */
+#splash-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #120801;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Ambient teal glow pulsing in background */
+.splash-bg-glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 45% at 50% 44%, rgba(210,150,40,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 30% 30% at 30% 60%, rgba(180,110,20,0.07) 0%, transparent 60%);
+  animation: splashGlowPulse 2.4s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes splashGlowPulse {
+  from { opacity: 0.6; transform: scale(1); }
+  to   { opacity: 1;   transform: scale(1.08); }
+}
+
+/* Subtle scan-line overlay for atmosphere */
+#splash-screen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(210,150,40,0.012) 3px,
+    rgba(210,150,40,0.012) 4px
+  );
+  pointer-events: none;
+  animation: splashScanFade 0.8s ease 0.3s both;
+}
+@keyframes splashScanFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.splash-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  margin-top: -40px; /* shift Re:GRC slightly above true center */
+}
+
+/* Logo wrap: icon + divider + text in a horizontal row */
+.splash-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+/* SVG icon container — set size here */
+.splash-icon-area {
+  position: relative;
+  width: 70px;
+  height: 80px;
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+/* The SVG itself */
+.splash-icon-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Each path inside the SVG gets a staggered reveal */
+.splash-icon-svg path:nth-child(1) {
+  opacity: 0;
+  transform-origin: left center;
+  animation: splashIconLeft 0.55s cubic-bezier(.22,1,.36,1) 0.1s forwards;
+}
+.splash-icon-svg path:nth-child(2) {
+  /* depth shadow — same timing as piece 1 */
+  opacity: 0;
+  animation: splashFadeOnly 0.4s ease 0.1s forwards;
+}
+.splash-icon-svg path:nth-child(3) {
+  opacity: 0;
+  transform-origin: right center;
+  animation: splashIconRight 0.55s cubic-bezier(.22,1,.36,1) 0.22s forwards;
+}
+.splash-icon-svg path:nth-child(4) {
+  opacity: 0;
+  animation: splashFadeOnly 0.4s ease 0.22s forwards;
+}
+
+@keyframes splashIconLeft {
+  from { opacity: 0; transform: translateX(-28px) scaleX(0.7); }
+  to   { opacity: 1; transform: translateX(0) scaleX(1); }
+}
+@keyframes splashIconRight {
+  from { opacity: 1; transform: translateX(28px) scaleX(0.7); }
+  to   { opacity: 1; transform: translateX(0) scaleX(1); }
+}
+@keyframes splashFadeOnly {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Thin vertical divider */
+.splash-divider {
+  width: 1px;
+  height: 46px;
+  background: linear-gradient(to bottom, transparent, rgba(255,255,255,.3) 30%, rgba(255,255,255,.3) 70%, transparent);
+  margin: 0 22px;
+  opacity: 0;
+  animation: splashTextFade 0.35s ease 0.7s forwards;
+  flex-shrink: 0;
+}
+
+/* Re:GRC logotype */
+.splash-logo-text {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: .03em;
+  opacity: 0;
+  animation: splashTextSlide 0.65s cubic-bezier(.22,1,.36,1) 0.75s forwards;
+  white-space: nowrap;
+}
+.splash-colon { color: #d4a050; }
+
+@keyframes splashTextFade {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes splashTextSlide {
+  from { opacity: 0; transform: translateX(16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Thin progress bar that fills then triggers exit */
+.splash-progress-wrap {
+  width: 120px;
+  height: 2px;
+  background: rgba(210,150,40,0.15);
+  border-radius: 2px;
+  overflow: hidden;
+  opacity: 0;
+  animation: splashTextFade 0.3s ease 1.1s forwards;
+}
+.splash-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #d4a050, #f0c870);
+  border-radius: 2px;
+  animation: splashProgressFill 1.0s cubic-bezier(.4,0,.2,1) 1.2s forwards;
+  box-shadow: 0 0 8px rgba(210,150,40,0.6);
+}
+@keyframes splashProgressFill {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+/* "by Rhegil Boleche" pinned to the bottom */
+.splash-by {
+  position: absolute;
+  bottom: 36px;
+  left: 45%;
+  transform: translateX(-50%);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: rgba(210,150,40,0.5);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  animation: splashTextFade 0.5s ease 1.5s forwards;
+}
+
+/* ── Creative exit: scale-blur wipe ───────────────────────
+   Phase 1 (0–25%):  slight scale-up (building tension)
+   Phase 2 (25–100%): scale continues + blur + opacity out
+   Result: the screen "exhales" and dissolves into the app   */
+#splash-screen.splash-out {
+  animation: splashExit 0.85s cubic-bezier(.4,0,.8,1) forwards;
+  pointer-events: none;
+}
+@keyframes splashExit {
+  0%   { opacity: 1; transform: scale(1);    filter: blur(0px);   }
+  20%  { opacity: 1; transform: scale(1.03); filter: blur(0px);   }
+  60%  { opacity: 0.4; transform: scale(1.07); filter: blur(6px); }
+  100% { opacity: 0; transform: scale(1.12); filter: blur(18px);  }
+}

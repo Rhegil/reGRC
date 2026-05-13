@@ -1,0 +1,156 @@
+/* ── Risk Heat Matrix ────────────────────────────────────── */
+@keyframes rmFadeIn {
+  from { opacity: 0; transform: scale(.85); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.rm-outer { padding-top: 6px; }
+
+/* Axis title row (LIKELIHOOD label above grid) */
+.rm-h-axis-title {
+  display: flex;
+  align-items: center;
+  padding-left: 36px; /* v-axis width + spacer */
+  margin-bottom: 4px;
+}
+.rm-h-title-text {
+  flex: 1;
+  text-align: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Header label row (VL L M H VH) */
+.rm-top-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3px;
+}
+.rm-v-axis-spacer { width: 14px; flex-shrink: 0; }
+.rm-corner { width: 22px; flex-shrink: 0; }
+.rm-h-label {
+  flex: 1;
+  text-align: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: .03em;
+}
+
+/* Main body: IMPACT label + rows */
+.rm-rows-wrap {
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+}
+.rm-v-axis-title {
+  width: 14px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rm-v-axis-title span {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+}
+.rm-rows { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+
+/* Each data row */
+.rm-row {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.rm-v-label {
+  width: 22px;
+  flex-shrink: 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+  text-align: right;
+  padding-right: 4px;
+}
+
+/* Individual cells */
+.rm-cell {
+  flex: 1;
+  aspect-ratio: 1;
+  min-height: 34px;
+  border: 1px solid;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: filter .14s, transform .14s, box-shadow .14s;
+  opacity: 0;
+  animation: rmFadeIn .3s ease forwards;
+}
+.rm-cell:hover {
+  filter: brightness(1.45);
+  transform: scale(1.12);
+  z-index: 5;
+  position: relative;
+}
+.rm-live:hover {
+  box-shadow: 0 0 10px var(--rm-glow);
+}
+.rm-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  pointer-events: none;
+}
+.rm-empty-pip {
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  opacity: .22;
+  pointer-events: none;
+}
+
+/* Legend */
+.rm-legend {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-light);
+}
+.rm-leg {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px;
+  color: var(--text-secondary);
+}
+.rm-leg i {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 2px;
+  font-style: normal;
+  flex-shrink: 0;
+}
+
+/* Tooltip meta row */
+.rm-tip-meta {
+  margin-top: 8px;
+  font-size: 10.5px;
+  color: var(--text-muted);
+  font-family: 'IBM Plex Mono', monospace;
+  line-height: 1.8;
+}
+.rm-tip-meta span { color: var(--text-secondary); }
