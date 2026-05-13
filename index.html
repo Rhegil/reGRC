@@ -5,7 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Re:GRC</title>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/charts.css">
+  <link rel="stylesheet" href="css/risk-matrix.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/splash.css">
+  <link rel="stylesheet" href="css/modals-dashboard-v2.css">
 </head>
 <body>
 
@@ -48,6 +55,54 @@
   </button>
   <div class="header-spacer"></div>
   <span class="header-badge">v1.0 · Basic</span>
+
+   <!-- NOTIFICATION BELL -->
+  <div class="notif-wrapper" id="notifWrapper">
+    <button class="notif-btn" id="notifBtn" onclick="toggleNotif()" aria-label="Notifications">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+      <span class="notif-badge" id="notifBadge">3</span>
+    </button>
+    <div class="notif-panel" id="notifPanel">
+      <div class="notif-header">
+        <span class="notif-title">Notifications</span>
+        <button class="notif-mark-all" onclick="markAllRead()">Mark all read</button>
+      </div>
+      <div class="notif-list" id="notifList">
+        <div class="notif-item unread urgent" data-id="1">
+          <div class="notif-icon-wrap urgent">⚠️</div>
+          <div class="notif-content">
+            <div class="notif-msg">17 controls are <strong>overdue</strong> and need validation</div>
+            <div class="notif-meta">Risk Register · Just now</div>
+          </div>
+          <button class="notif-dismiss" onclick="dismissNotif(1)">✕</button>
+        </div>
+        <div class="notif-item unread" data-id="2">
+          <div class="notif-icon-wrap warning">🕐</div>
+          <div class="notif-content">
+            <div class="notif-msg">12 controls are <strong>approaching overdue</strong></div>
+            <div class="notif-meta">Control Library · 2 hours ago</div>
+          </div>
+          <button class="notif-dismiss" onclick="dismissNotif(2)">✕</button>
+        </div>
+        <div class="notif-item unread" data-id="3">
+          <div class="notif-icon-wrap info">📋</div>
+          <div class="notif-content">
+            <div class="notif-msg">9 risks are <strong>pending approval</strong></div>
+            <div class="notif-meta">Risk Register · 5 hours ago</div>
+          </div>
+          <button class="notif-dismiss" onclick="dismissNotif(3)">✕</button>
+        </div>
+      </div>
+      <div class="notif-footer">
+        <a href="#" class="notif-view-all">View all activity →</a>
+      </div>
+    </div>
+  </div>
+  <!-- END NOTIFICATION BELL -->
+
   <div class="avatar" title="Admin">AD</div>
 </header>
 
@@ -935,6 +990,7 @@
 <!-- JS modules loaded in dependency order -->
 <script src="js/state.js"></script>
 <script src="js/ui.js"></script>
+<script src="js/notifications.js"></script>
 <script src="js/controls.js"></script>
 <script src="js/risks.js"></script>
 <script src="js/settings.js"></script>
