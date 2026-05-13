@@ -1,0 +1,110 @@
+<!-- ADD RISK MODAL -->
+<div class="modal-overlay" id="risk-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">Add New Risk</span>
+      <button class="modal-close" onclick="closeModal('risk-modal')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Risk Title *</label>
+          <input class="form-control" id="r-title" type="text" placeholder="e.g. Unauthorized Data Access">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Category *</label>
+            <select class="form-control" id="r-cat">
+              <option value="">Select category</option>
+              <option>Operational</option>
+              <option>Compliance</option>
+              <option>Strategic</option>
+              <option>Financial</option>
+              <option>Technology</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Owner</label>
+            <input class="form-control" id="r-owner" type="text" placeholder="e.g. CISO">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Impact</label>
+            <select class="form-control" id="r-impact">
+              <option>Very Low</option>
+              <option>Low</option>
+              <option selected>Medium</option>
+              <option>High</option>
+              <option>Very High</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Likelihood</label>
+            <select class="form-control" id="r-likelihood">
+              <option>Very Low</option>
+              <option>Low</option>
+              <option selected>Medium</option>
+              <option>High</option>
+              <option>Very High</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Treatment Strategy</label>
+            <select class="form-control" id="r-treatment">
+              <option>Accept</option>
+              <option>Mitigate</option>
+              <option>Transfer</option>
+              <option>Avoid</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Risk Status</label>
+            <select class="form-control" id="r-status">
+              <option>Open</option>
+              <option>Pending Approval</option>
+              <option>Action Plan In Progress</option>
+              <option>Accepted</option>
+              <option>Closed</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Linked Controls</label>
+          <div class="ctrl-picker">
+            <div class="ctrl-picker-search-wrap">
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" style="color:var(--text-muted);flex-shrink:0"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.099zm-5.242 1.656a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z"/></svg>
+              <input class="ctrl-picker-search" id="r-ctrl-search" type="text" placeholder="Search controls…" oninput="filterCtrlPicker()" autocomplete="off">
+            </div>
+            <div class="ctrl-picker-list" id="r-ctrl-list">
+              <div class="ctrl-picker-empty">No controls added yet</div>
+            </div>
+            <div class="ctrl-picker-selected" id="r-ctrl-selected-wrap" style="display:none;">
+              <div class="ctrl-picker-selected-label">Selected:</div>
+              <div class="ctrl-picker-tags" id="r-ctrl-tags"></div>
+            </div>
+          </div>
+          <input type="hidden" id="r-controls-hidden">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea class="form-control" id="r-desc" placeholder="Describe the risk, potential consequences, and context…"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Action Plan</label>
+          <textarea class="form-control" id="r-action" placeholder="Steps to mitigate or resolve this risk…"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Due Date</label>
+          <input class="form-control" id="r-due-date" type="date">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('risk-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveRisk()">Save Risk</button>
+    </div>
+  </div>
+</div>

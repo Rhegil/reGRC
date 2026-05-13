@@ -1,0 +1,89 @@
+<!-- ADD CONTROL MODAL -->
+<div class="modal-overlay" id="control-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">Add New Control</span>
+      <button class="modal-close" onclick="closeModal('control-modal')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Control Name *</label>
+          <input class="form-control" id="c-name" type="text" placeholder="e.g. Multi-Factor Authentication">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Domain *</label>
+            <select class="form-control" id="c-domain">
+              <option value="">Select domain</option>
+              <option value="Access Control">Access Control</option>
+              <option value="Server Management">Server Management</option>
+              <option value="Vulnerability Management">Vulnerability Management</option>
+              <option value="Messaging and Collaboration">Messaging and Collaboration</option>
+              <option value="Network Security">Network Security</option>
+              <option value="Vendor Management">Vendor Management</option>
+              <option value="Mobile Device Management">Mobile Device Management</option>
+              <option value="Workstation Management">Workstation Management</option>
+              <option value="Infrastructure Monitoring">Infrastructure Monitoring</option>
+              <option value="Database Management">Database Management</option>
+              <option value="Antivirus Management">Antivirus Management</option>
+              <option value="Backup &amp; Storage">Backup &amp; Storage</option>
+              <option value="Cloud">Cloud</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Validation Date</label>
+            <input class="form-control" id="c-validation-date" type="date">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Owner</label>
+            <input class="form-control" id="c-owner" type="text" placeholder="e.g. IT Security Team">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Status *</label>
+            <select class="form-control" id="c-status">
+              <option value="Not Assessed">Not Assessed</option>
+              <option value="Compliant">Compliant</option>
+              <option value="Approaching Overdue">Approaching Overdue</option>
+              <option value="Overdue">Overdue</option>
+              <option value="Out of Scope">Out of Scope</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Control Frequency</label>
+            <select class="form-control" id="c-frequency">
+              <option value="">Select frequency</option>
+              <option value="Monthly">Monthly</option>
+              <option value="Quarterly">Quarterly</option>
+              <option value="Semi-Annual">Semi-Annual</option>
+              <option value="Annual">Annual</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Attachment Required</label>
+            <select class="form-control" id="c-attach-required">
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea class="form-control" id="c-desc" placeholder="Describe this control and its objectives…"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Test Procedure</label>
+          <textarea class="form-control" id="c-test-procedure" placeholder="Describe the steps to test or validate this control…"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('control-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveControl()">Save Control</button>
+    </div>
+  </div>
+</div>

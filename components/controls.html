@@ -1,0 +1,59 @@
+<div class="page-header">
+  <div>
+    <div class="page-title">Control Library</div>
+    <div class="page-subtitle">Manage and track all governance controls</div>
+  </div>
+  <button class="btn btn-primary" onclick="openModal('control-modal')">
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M7 7V1h2v6h6v2H9v6H7V9H1V7h6z"/></svg>
+    Add Control
+  </button>
+</div>
+
+<div class="toolbar">
+  <input class="search-input" type="text" id="ctrl-search" placeholder="Search controls…" oninput="filterTable('ctrl-search','ctrl-body')">
+  <select class="filter-select" onchange="filterByStatus('ctrl-body', this.value)">
+    <option value="">All Statuses</option>
+    <option value="Compliant">Compliant</option>
+    <option value="Approaching Overdue">Approaching Overdue</option>
+    <option value="Overdue">Overdue</option>
+    <option value="Not Assessed">Not Assessed</option>
+    <option value="Out of Scope">Out of Scope</option>
+  </select>
+  <select class="filter-select" onchange="filterByDomain('ctrl-body', this.value)">
+    <option value="">All Domains</option>
+    <option value="Access Control">Access Control</option>
+    <option value="Server Management">Server Management</option>
+    <option value="Vulnerability Management">Vulnerability Management</option>
+    <option value="Messaging and Collaboration">Messaging and Collaboration</option>
+    <option value="Network Security">Network Security</option>
+    <option value="Vendor Management">Vendor Management</option>
+    <option value="Mobile Device Management">Mobile Device Management</option>
+    <option value="Workstation Management">Workstation Management</option>
+    <option value="Infrastructure Monitoring">Infrastructure Monitoring</option>
+    <option value="Database Management">Database Management</option>
+    <option value="Antivirus Management">Antivirus Management</option>
+    <option value="Backup &amp; Storage">Backup &amp; Storage</option>
+    <option value="Cloud">Cloud</option>
+  </select>
+</div>
+
+<div class="card" style="padding:0;overflow:hidden;">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Control ID</th>
+        <th>Control Name</th>
+        <th>Domain</th>
+        <th>Validation Date</th>
+        <th>Frequency</th>
+        <th>Owner</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="ctrl-body"></tbody>
+  </table>
+  <div id="ctrl-empty" class="empty-state" style="display:none;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2z"/></svg>
+    <p>No controls yet. Click <strong>Add Control</strong> to get started.</p>
+  </div>
+</div>

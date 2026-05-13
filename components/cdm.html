@@ -1,0 +1,176 @@
+<!-- ═══ CONTROL DETAIL MODAL ════════════════════════ -->
+<div class="detail-modal-overlay" id="ctrl-drawer-overlay" onclick="handleCtrlOverlayClick(event)">
+<div class="detail-modal" id="ctrl-drawer">
+
+  <!-- Modal top bar (ID + title + close) -->
+  <div class="dm-topbar">
+    <div class="dm-topbar-left">
+      <div class="dm-id" id="dw-id">—</div>
+      <div class="dm-title" id="dw-name">Control Detail</div>
+    </div>
+    <button class="dm-close-btn" onclick="closeDrawer()" title="Close">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg>
+    </button>
+  </div>
+
+  <!-- Section label -->
+  <div class="dm-section-label">Control Details</div>
+
+  <!-- Confirm bars (shown inline above grid when triggered) -->
+  <div class="delete-confirm-bar" id="dw-delete-bar">
+    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/></svg>
+    <p>Permanently delete <span id="dw-delete-name"></span>?</p>
+    <button class="btn btn-outline" style="padding:5px 10px;font-size:12px;" onclick="cancelDelete()">Cancel</button>
+    <button class="btn" style="background:var(--accent-red);color:#fff;padding:5px 10px;font-size:12px;border:none;" onclick="confirmDeleteControl()">Delete</button>
+  </div>
+  <div class="validate-confirm-bar" id="dw-validate-bar">
+    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/></svg>
+    <p>Mark this control as <strong style="color:var(--accent-green)">Compliant</strong> with today's validation date?</p>
+    <button class="btn btn-outline" style="padding:5px 10px;font-size:12px;" onclick="cancelValidate()">Cancel</button>
+    <button class="btn btn-green" style="padding:5px 10px;font-size:12px;" onclick="confirmValidateControl()">Confirm</button>
+  </div>
+
+
+  <!-- 3-column detail grid (wireframe backbone) -->
+  <div class="dm-grid">
+
+    <!-- ── Col 1: Identity + action icons ────────── -->
+    <div class="dm-col dm-col-1">
+
+      <div class="dm-field">
+        <div class="dm-label">Domain</div>
+        <div class="dm-value" id="dw-domain">—</div>
+        <select class="form-control edit-mode-field" id="dw-domain-input" style="display:none;margin-top:4px;">
+          <option value="Access Control">Access Control</option>
+          <option value="Server Management">Server Management</option>
+          <option value="Vulnerability Management">Vulnerability Management</option>
+          <option value="Messaging and Collaboration">Messaging and Collaboration</option>
+          <option value="Network Security">Network Security</option>
+          <option value="Vendor Management">Vendor Management</option>
+          <option value="Mobile Device Management">Mobile Device Management</option>
+          <option value="Workstation Management">Workstation Management</option>
+          <option value="Infrastructure Monitoring">Infrastructure Monitoring</option>
+          <option value="Database Management">Database Management</option>
+          <option value="Antivirus Management">Antivirus Management</option>
+          <option value="Backup &amp; Storage">Backup &amp; Storage</option>
+          <option value="Cloud">Cloud</option>
+        </select>
+      </div>
+
+      <div class="dm-field">
+        <div class="dm-label">Owner</div>
+        <div class="dm-value" id="dw-owner">—</div>
+        <input type="text" class="form-control edit-mode-field" id="dw-owner-input" style="display:none;margin-top:4px;" placeholder="Owner name…">
+      </div>
+
+      <div class="dm-field" id="dw-attach-required-field" style="display:none;">
+        <div class="dm-label">Attachment Required</div>
+        <div class="dm-value" id="dw-attach-required">No</div>
+        <select class="form-control" id="dw-attach-required-input" style="display:none;margin-top:4px;">
+          <option value="No">No</option>
+          <option value="Yes">Yes</option>
+        </select>
+      </div>
+
+      <!-- Spacer pushes icons to bottom -->
+      <div class="dm-col-spacer"></div>
+
+      <!-- Validate + Attachments just above Edit + Delete -->
+      <div class="dm-inline-actions">
+        <button class="dm-icon-btn dm-icon-validate" title="Validate Control" onclick="promptValidateControl()">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
+          Validate Control
+        </button>
+        <button class="dm-icon-btn dm-icon-attach" title="Attachments" onclick="document.getElementById('dw-file-input').click()">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0z"/></svg>
+          Attachments
+        </button>
+      </div>
+
+      <!-- Edit + Delete at bottom -->
+      <div class="dm-action-icons">
+        <button class="dm-icon-btn dm-icon-edit" id="dw-edit-btn" title="Edit" onclick="toggleControlEditMode()">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10z"/></svg>
+        </button>
+        <button class="dm-icon-btn dm-icon-delete" title="Delete" onclick="promptDeleteControl()">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5zM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1H11zm1.958 1l-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916z"/></svg>
+        </button>
+      </div>
+
+      <!-- Hidden file input -->
+      <input type="file" id="dw-file-input" class="attach-input" multiple onchange="handleFileSelect(event)">
+      <div class="attach-list" id="dw-attach-list" style="display:none;"></div>
+    </div>
+
+    <!-- ── Col 2: Status + Dates ──────────────────── -->
+    <div class="dm-col dm-col-2">
+
+      <div class="dm-field">
+        <div class="dm-label">Status</div>
+        <div class="dm-value" id="dw-status">—</div>
+        <select class="form-control edit-mode-field" id="dw-status-input" style="display:none;margin-top:4px;">
+          <option value="Not Assessed">Not Assessed</option>
+          <option value="Compliant">Compliant</option>
+          <option value="Approaching Overdue">Approaching Overdue</option>
+          <option value="Overdue">Overdue</option>
+          <option value="Out of Scope">Out of Scope</option>
+        </select>
+      </div>
+
+      <div class="dm-field">
+        <div class="dm-label">Frequency</div>
+        <div class="dm-value" id="dw-frequency">—</div>
+        <select class="form-control edit-mode-field" id="dw-frequency-input" style="display:none;margin-top:4px;">
+          <option value="">Select frequency</option>
+          <option value="Monthly">Monthly</option>
+          <option value="Quarterly">Quarterly</option>
+          <option value="Semi-Annual">Semi-Annual</option>
+          <option value="Annual">Annual</option>
+        </select>
+      </div>
+
+      <div class="dm-field">
+        <div class="dm-label">Validation Date</div>
+        <div class="dm-value mono" id="dw-validation-date">—</div>
+        <input type="date" class="form-control edit-mode-field" id="dw-validation-date-input" style="display:none;margin-top:4px;">
+      </div>
+
+    </div>
+
+    <!-- ── Col 3: Description + Test Procedure ───── -->
+    <div class="dm-col dm-col-3">
+
+      <div class="dm-field dm-field-grow">
+        <div class="dm-label">Description</div>
+        <div class="dm-text-block" id="dw-desc">—</div>
+        <textarea class="form-control edit-mode-field" id="dw-desc-input" style="display:none;margin-top:4px;min-height:100px;" placeholder="Describe this control…"></textarea>
+      </div>
+
+      <div class="dm-attach-required-notice" id="dw-attach-notice" style="display:none;">
+        <svg viewBox="0 0 16 16" fill="currentColor" style="width:12px;height:12px;"><path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0z"/></svg>
+        Attachment Required
+      </div>
+
+      <div class="dm-field dm-field-grow">
+        <div class="dm-label">Test Procedure</div>
+        <div class="dm-text-block" id="dw-test-procedure">—</div>
+        <textarea class="form-control edit-mode-field" id="dw-test-procedure-input" style="display:none;margin-top:4px;min-height:80px;" placeholder="Describe the test procedure…"></textarea>
+      </div>
+
+      <!-- Pending uploads inside col 3 -->
+      <div id="dw-pending-uploads" style="display:none;margin-top:10px;">
+        <div class="attach-pending-header">Pending upload</div>
+        <div id="dw-pending-list"></div>
+        <textarea class="form-control" id="dw-attach-comment" placeholder="Add a comment (optional)…" style="min-height:48px;font-size:13px;margin-top:6px;"></textarea>
+        <div style="margin-top:6px;display:flex;gap:8px;justify-content:flex-end;">
+          <button class="btn btn-outline" style="font-size:12px;padding:5px 12px;" onclick="cancelPendingUploads()">Cancel</button>
+          <button class="btn btn-primary" style="font-size:12px;padding:5px 12px;" onclick="savePendingUploads()">Save Attachments</button>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /dm-grid -->
+
+
+</div><!-- /detail-modal -->
+</div><!-- /detail-modal-overlay -->

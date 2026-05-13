@@ -1,0 +1,146 @@
+<!-- ═══ RISK DETAIL MODAL ═══════════════════════════ -->
+<div class="detail-modal-overlay" id="risk-drawer-overlay" onclick="handleRiskOverlayClick(event)">
+<div class="detail-modal" id="risk-drawer">
+
+  <!-- Top bar -->
+  <div class="dm-topbar">
+    <div class="dm-topbar-left">
+      <div class="dm-id" id="rdw-id">—</div>
+      <div class="dm-title" id="rdw-title">Risk Detail</div>
+    </div>
+    <button class="dm-close-btn" onclick="closeRiskDrawer()" title="Close">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg>
+    </button>
+  </div>
+
+  <div class="dm-section-label">Risk Details</div>
+
+  <!-- Confirm bars -->
+  <div class="delete-confirm-bar" id="rdw-delete-bar">
+    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/></svg>
+    <p>Permanently delete <span id="rdw-delete-name"></span>?</p>
+    <button class="btn btn-outline" style="padding:5px 10px;font-size:12px;" onclick="cancelDeleteRisk()">Cancel</button>
+    <button class="btn" style="background:var(--accent-red);color:#fff;padding:5px 10px;font-size:12px;border:none;" onclick="confirmDeleteRisk()">Delete</button>
+  </div>
+
+  <!-- 3-column grid -->
+  <div class="dm-grid">
+
+    <!-- Col 1: Core fields + action icons -->
+    <div class="dm-col dm-col-1">
+
+      <div class="dm-field">
+        <div class="dm-label">Category</div>
+        <div class="dm-value" id="rdw-category">—</div>
+        <select class="form-control edit-mode-field" id="rdw-category-input" style="display:none;margin-top:4px;">
+          <option>Operational</option><option>Compliance</option><option>Strategic</option>
+          <option>Financial</option><option>Technology</option>
+        </select>
+      </div>
+
+      <div class="dm-field">
+        <div class="dm-label">Risk Level</div>
+        <div class="dm-value" id="rdw-level">—</div>
+      </div>
+
+      <div class="dm-field">
+        <div class="dm-label">Owner</div>
+        <div class="dm-value" id="rdw-owner">—</div>
+        <input type="text" class="form-control edit-mode-field" id="rdw-owner-input" style="display:none;margin-top:4px;" placeholder="Owner name…">
+      </div>
+
+      <div class="dm-field">
+        <div class="dm-label">Treatment</div>
+        <div class="dm-value" id="rdw-treatment">—</div>
+        <select class="form-control edit-mode-field" id="rdw-treatment-input" style="display:none;margin-top:4px;">
+          <option>Accept</option><option>Mitigate</option><option>Transfer</option><option>Avoid</option>
+        </select>
+      </div>
+
+      <div class="dm-field">
+        <div class="dm-label">Due Date</div>
+        <div class="dm-value mono" id="rdw-due">—</div>
+        <input type="date" class="form-control edit-mode-field" id="rdw-due-input" style="display:none;margin-top:4px;">
+      </div>
+
+      <div class="dm-col-spacer"></div>
+
+      <!-- Action icons at bottom -->
+      <div class="dm-action-icons">
+        <button class="dm-icon-btn dm-icon-edit" id="rdw-edit-btn" title="Edit" onclick="toggleRiskEditMode()">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10z"/></svg>
+        </button>
+        <button class="dm-icon-btn dm-icon-delete" title="Delete" onclick="promptDeleteRisk()">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5zM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1H11zm1.958 1l-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916z"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Col 2: Risk parameters -->
+    <div class="dm-col dm-col-2">
+
+      <div class="dm-field">
+        <div class="dm-label">Status</div>
+        <div class="dm-value" id="rdw-status">—</div>
+        <select class="form-control edit-mode-field" id="rdw-status-input" style="display:none;margin-top:4px;">
+          <option>Open</option><option>Pending Approval</option>
+          <option>Action Plan In Progress</option><option>Accepted</option><option>Closed</option>
+        </select>
+      </div>
+
+      <div class="dm-field">
+        <div class="dm-label">Impact</div>
+        <div class="dm-value" id="rdw-impact">—</div>
+        <select class="form-control edit-mode-field" id="rdw-impact-input" style="display:none;margin-top:4px;">
+          <option>Very Low</option><option>Low</option><option>Medium</option><option>High</option><option>Very High</option>
+        </select>
+      </div>
+
+      <div class="dm-field">
+        <div class="dm-label">Likelihood</div>
+        <div class="dm-value" id="rdw-likelihood">—</div>
+        <select class="form-control edit-mode-field" id="rdw-likelihood-input" style="display:none;margin-top:4px;">
+          <option>Very Low</option><option>Low</option><option>Medium</option><option>High</option><option>Very High</option>
+        </select>
+      </div>
+
+      <div class="dm-field">
+        <div class="dm-label">Linked Controls <span style="font-size:10px;font-weight:400;opacity:.6;">(click to view)</span></div>
+        <div class="tag-list" id="rdw-controls" style="margin-top:4px;"></div>
+      </div>
+
+    </div>
+
+    <!-- Col 3: Description + Action Plan -->
+    <div class="dm-col dm-col-3">
+
+      <div class="dm-field dm-field-grow">
+        <div class="dm-label">Description</div>
+        <div class="dm-text-block" id="rdw-desc">—</div>
+        <textarea class="form-control edit-mode-field" id="rdw-desc-input" style="display:none;margin-top:4px;min-height:100px;" placeholder="Describe the risk…"></textarea>
+      </div>
+
+      <div class="dm-field dm-field-grow">
+        <div class="dm-label">Action Plan</div>
+        <div class="dm-text-block" id="rdw-action">—</div>
+        <textarea class="form-control edit-mode-field" id="rdw-action-input" style="display:none;margin-top:4px;min-height:80px;" placeholder="Steps to mitigate or resolve this risk…"></textarea>
+      </div>
+
+    </div>
+  </div><!-- /dm-grid -->
+
+
+</div><!-- /detail-modal -->
+</div><!-- /detail-modal-overlay -->
+
+<!-- Control Info Popup (linked controls in risk drawer) -->
+<div id="ctrl-info-popup" style="display:none;position:fixed;z-index:9999;background:var(--bg-surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px;min-width:240px;max-width:320px;box-shadow:0 8px 32px rgba(0,0,0,.35);">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+    <span id="ctrl-popup-id" style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent-blue);letter-spacing:.06em;"></span>
+    <button onclick="document.getElementById('ctrl-info-popup').style.display='none'" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:16px;line-height:1;padding:0 2px;">×</button>
+  </div>
+  <div id="ctrl-popup-name" style="font-size:14px;font-weight:600;color:var(--text-primary);margin-bottom:6px;"></div>
+  <div id="ctrl-popup-domain" style="font-size:11.5px;color:var(--text-muted);margin-bottom:10px;"></div>
+  <div style="font-size:11px;font-family:'IBM Plex Mono',monospace;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;">Description</div>
+  <div id="ctrl-popup-desc" style="font-size:13px;color:var(--text-secondary);line-height:1.55;"></div>
+</div>

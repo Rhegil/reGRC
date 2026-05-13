@@ -1,0 +1,51 @@
+<div class="page-header">
+  <div>
+    <div class="page-title">Risk Register</div>
+    <div class="page-subtitle">Identify, assess, and track organizational risks</div>
+  </div>
+  <button class="btn btn-primary" onclick="openModal('risk-modal')">
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M7 7V1h2v6h6v2H9v6H7V9H1V7h6z"/></svg>
+    Add Risk
+  </button>
+</div>
+
+<div class="toolbar">
+  <input class="search-input" type="text" id="risk-search" placeholder="Search risks…" oninput="filterTable('risk-search','risk-body')">
+  <select class="filter-select" onchange="filterByRiskStatus('risk-body', this.value)">
+    <option value="">All Statuses</option>
+    <option value="Open">Open</option>
+    <option value="Pending Approval">Pending Approval</option>
+    <option value="Action Plan In Progress">Action Plan In Progress</option>
+    <option value="Accepted">Accepted</option>
+    <option value="Closed">Closed</option>
+  </select>
+  <select class="filter-select" onchange="filterByCategory('risk-body', this.value)">
+    <option value="">All Categories</option>
+    <option value="Operational">Operational</option>
+    <option value="Compliance">Compliance</option>
+    <option value="Strategic">Strategic</option>
+    <option value="Financial">Financial</option>
+    <option value="Technology">Technology</option>
+  </select>
+</div>
+
+<div class="card" style="padding:0;overflow:hidden;">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Risk ID</th>
+        <th>Risk Title</th>
+        <th>Category</th>
+        <th>Owner</th>
+        <th>Treatment</th>
+        <th>Risk Level</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="risk-body"></tbody>
+  </table>
+  <div id="risk-empty" class="empty-state" style="display:none;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+    <p>No risks recorded. Click <strong>Add Risk</strong> to get started.</p>
+  </div>
+</div>

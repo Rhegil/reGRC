@@ -1,0 +1,33 @@
+<div class="page-header">
+  <div>
+    <div class="page-title">Settings</div>
+    <div class="page-subtitle">Customize your ReGRC experience</div>
+  </div>
+</div>
+
+<div class="settings-layout" style="grid-template-columns: 1fr;">
+
+  <!-- ── Appearance ─────────────────────────────── -->
+  <div class="settings-group">
+    <div class="settings-group-title">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4z"/></svg>
+      Appearance
+    </div>
+    <div class="card settings-card">
+      <div class="setting-row">
+        <div class="setting-icon" style="background:rgba(122,69,32,.12);color:var(--accent-blue);">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/></svg>
+        </div>
+        <div class="setting-body">
+          <div class="setting-title">Dark Mode</div>
+          <div class="setting-sub">Switch to the original dark color scheme</div>
+        </div>
+        <label class="s-toggle">
+          <input type="checkbox" id="s-dark-mode" onchange="onSettingToggle('darkMode', this.checked)">
+          <span class="s-track"><span class="s-thumb"></span></span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /settings-layout -->
