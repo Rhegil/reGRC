@@ -1,1 +1,13 @@
+/* ─────────────────────────────────────────────────────────
+   styles.css  —  GRC Command Center
+   Main entry point — imports all partial stylesheets
+   ───────────────────────────────────────────────────────── */
 
+@import url('css/base.css');
+@import url('css/dashboard.css');
+@import url('css/components.css');
+@import url('css/charts.css');
+@import url('css/risk-matrix.css');
+@import url('css/themes.css');
+@import url('css/splash.css');
+@import url('css/modals-dashboard-v2.css');
